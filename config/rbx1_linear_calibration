@@ -1,0 +1,25 @@
+!!python/object/new:dynamic_reconfigure.encoding.Config
+dictitems:
+  groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+    dictitems:
+      groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      id: 0
+      name: Default
+      odom_linear_scale_correction: 1.0
+      parameters: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      parent: 0
+      speed: 0.15
+      start_test: false
+      state: true
+      test_distance: 2.0
+      tolerance: 0.01
+      type: ''
+    state: []
+  odom_linear_scale_correction: 1.0
+  speed: 0.15
+  start_test: false
+  test_distance: 2.0
+  tolerance: 0.01
+state: []

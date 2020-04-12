@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!--node pkg="tf" type="static_transform_publisher" name="base_to_stereo" args="0.43 0 0.585 0 0 0 1 /base_link /zed_stereo 10" /-->
+  
+  <!-- Robot base control-->
+  <!--node name="hellobot_base" pkg="HYJ_DiPan_Package" type="hellobot1.0_base_controller_odom_pub_uart_node.py" output="screen"-->
+  <node name="hellobot_base" pkg="HYJ_DiPan_Package" type="hellobot1.0_base_controller_odom_pub_uart_node.py" output="screen">
+  </node>
+  
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar" args="0.2 0.0 0.0 0.0 0.0 0.0 base_link velodyne 100" /> <!--rplidar 0.62 lslidar 0.53 new 0.15-->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_base_footprint" args="0.0 0.0 -0.09 0.0 0.0 0.0 base_link base_footprint 100" />
+
+  <!-- TwistStamped to Twist Converter-->
+  <node name="twiststamped_to_twist" pkg="HYJ_DiPan_Package" type="hellobot1.0_twiststamped_to_twist.py" output="screen">
+  </node>
+
+  <!--Command Velocity-->
+  <node pkg="topic_tools" type="relay" name="relay_cmd_vel" args="/cmd_vel /planner/cmd_vel"/>
+  <node pkg="topic_tools" type="relay" name="relay_key_vel" args="/key_vel /planner/cmd_vel"/>
+
+  <node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+    <param name="serial_port"       type="string" value="/dev/rplidar"/>
+    <param name="serial_baudrate"   type="int"    value="115200"/><!--A1/A2 -->
+    <param name="frame_id"          type="string" value="velodyne"/>
+    <param name="inverted"          type="bool"   value="false"/>
+    <param name="angle_compensate"  type="bool"   value="true"/>
+    <param name="cut_angle"         type="bool"   value="true"/>
+    <param name="right_degrees"     type="int"   value="90"/>
+    <param name="left_degrees"      type="int"   value="180"/>
+  </node>
+
+</launch>
