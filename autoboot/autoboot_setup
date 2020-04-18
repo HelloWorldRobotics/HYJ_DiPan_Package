@@ -1,0 +1,11 @@
+#copy and paste this in the last line in ~/.bashrc file
+
+#autoboot dash disinfection robot
+if rostopic list ; then
+  echo "DASH ROBOT SYSTEM AUTO STARTED SUCCESSFULLY"
+else
+   #launch roscore
+   roslaunch HYJ_DiPan_Package dash_disinfection.launch
+   #launch 
+  sleep 30
+   ...
