@@ -13,6 +13,8 @@
 #!/usr/bin/env python, 这个py就处于了可执行模式下, (当然是针对linux类的操作系统),  这个hint,
 告诉操作系统要使用哪个python解释器来执行这个py. 在linux上执行一下命令 /usr/bin/env python ,
 就知道这行其实是call一下python解释器.  这种写法比#! /usr/bin/python要好, 后者是hard coding 了python的路径.
+
+** SOMETHING WRONG WITH THE RELATIONSHIP BETWEEN PWM AND DESIRED VELOCITY. WE WILL COME BACK TO FIX IT WHEN WE HAVE THE TIME
 """
 import sys
 import time
@@ -82,7 +84,7 @@ class HelloBot2_Base_Driver:
     #xxxxWheelV = PWM *factor + offset
     def velocity_callback(self,msg):
         (self.left_wheel_speed,self.right_wheel_speed)=self.odom_to_speed(msg.linear.x, msg.linear.y, msg.angular.z)
-        print(self.left_wheel_speed,self.right_wheel_speed)
+        #print(self.left_wheel_speed,self.right_wheel_speed)
         #Wheel Speed = PWM*factor + offset
         #PWM = (Wheel Speed - offset) / factor
         self.left_encoder	= ((self.left_wheel_speed-const.offset_left)/const.factor_left)
@@ -90,7 +92,7 @@ class HelloBot2_Base_Driver:
         #print(self.left_encoder,self.right_encoder)
         self.left_encoderInt	= int(self.left_encoder)
         self.right_encoderInt	= int(self.right_encoder)
-        print(self.left_encoderInt,self.right_encoderInt)
+        #print(self.left_encoderInt,self.right_encoderInt)
         # Positive = front, Negative = back
         if self.left_encoderInt >=0:
             self.left_direction_flag  = '0C'
@@ -143,7 +145,7 @@ class HelloBot2_Base_Driver:
 
     def run(self):
         rate = rospy.Rate(20)
-        self.ser = serial.Serial('/dev/ttyUSB0',115200,timeout=0.1)
+        self.ser = serial.Serial('/dev/dash_base',115200,timeout=0.1)
         rospy.Subscriber("/planner/cmd_vel",Twist,self.velocity_callback)
         rospy.loginfo("HelloBot2.0 Connected Succesfully!")
 
@@ -180,7 +182,7 @@ class HelloBot2_Base_Driver:
                         break
 
                 #print(isinstance(v_left_wheel, float))
-                print(v_left_wheel,v_right_wheel)
+                #print(v_left_wheel,v_right_wheel)
                 #print(self.is_number(v_left_wheel),self.is_number(v_right_wheel))
                 (vx,vy,vth) = self.velocity_to_odom(v_left_wheel,v_right_wheel)
                 #(vx,vy,vth) = self.velocity_to_odom(0,0)
