@@ -19,6 +19,6 @@
   <node pkg="topic_tools" type="relay" name="relay_cmd_vel" args="/cmd_vel /planner/cmd_vel"/>
   <node pkg="topic_tools" type="relay" name="relay_key_vel" args="/key_vel /planner/cmd_vel"/>
 
-  <include file="/home/odroid/HelloWorld_Robotics_Workspace/src/rplidar_ros/launch/rplidar.launch"/>
+  <include file="/home/helloworld/HelloWorld_Robotics_Workspace/src/rplidar_ros/launch/rplidar.launch"/>
 
 </launch>
